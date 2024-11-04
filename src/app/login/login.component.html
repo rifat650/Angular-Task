@@ -1,0 +1,43 @@
+<div class=" flex items-center justify-center w-full h-screen" style="background: url('/bg.jpg');">
+
+   <div class=" w-96 bg-white px-6 py-6 rounded-lg shadow-stone-400 shadow-md max-w-96">
+      <div class="mb-5">
+         <h2 class="text-3xl font-medium">Log in</h2>
+         <small>Don't have an account? <a class="text-purple-600 underline hover:cursor-pointer" routerLink="/signup">Signup here</a></small>
+      </div>
+
+      <div class="mb-5">
+         <label for="email" class=""><small class="block text-sm font-medium ml-3 mb-1">Email Address</small></label>
+         <input type="email" name="" id="email"
+            class="border-solid border rounded-xl w-full py-1.5 focus:outline-1 outline-sky-400 px-3">
+      </div>
+
+
+      <div class="mb-5">
+         <label for="email" class=""><small class="block text-sm font-medium ml-3 mb-1">Password</small></label>
+         <div class="relative">
+            <input type="password" name="" id="email"
+               class="border-solid border rounded-xl w-full py-1.5 focus:outline-1 outline-sky-400 px-3" #password>
+            @if (passwordUnseenMode) {
+            <button class="fa-solid fa-eye-slash"
+               style="position: absolute; top: 50%; right: 2%; transform: translate(-50%,-50%);"
+               (click)="SeePassword(password)"></button>
+            }@else {
+            <button class="fa-solid fa-eye"
+               style="position: absolute; top: 50%; right: 2%; transform: translate(-50%,-50%);"
+               (click)="hidePassword(password)"></button>
+            }
+         </div>
+      </div>
+
+      <div class="flex items-start space-x-2 ">
+         <input type="checkbox" name="" id="check" class="mt-1">
+         <label for="check" class="text-sm font-semibold block"> Remember me on this device</label>
+      </div>
+      <button class="w-full bg-blue-700 py-2 text-white capitalize mt-4 rounded-3xl">log in</button>
+
+      <a class="text-blue-600 block underline hover:cursor-pointer text-center mt-3">Forgot Password</a>
+
+   </div>
+
+</div>
