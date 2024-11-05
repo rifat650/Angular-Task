@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
    width: 100%;
    overflow-x: hidden;
 }
@@ -20,3 +20,4 @@ body{
    right: 0;
    transition: all 0.5s linear;
 }
+
