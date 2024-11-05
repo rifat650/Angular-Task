@@ -1,18 +1,18 @@
 <div class=" flex items-center justify-center w-full h-screen" style="background: url('/bg.jpg');">
 
-<div
-   class=" bg-red-600 text-white capitalize p-6 font-bold text-lg rounded-tl-2xl rounded-bl-2xl"  [ngClass]="{'hide':!invalidForm, 'show':invalidForm}">
-   Please complete all required fields before submitting &nbsp; &nbsp; &nbsp; &nbsp;
-   <button title="close" (click)="CloseErrorPopUp()"><i class="fa-solid fa-chevron-right"></i><i
-         class="fa-solid fa-chevron-right"></i></button>
-</div>
+   <div class=" bg-red-600 text-white capitalize p-6 font-bold text-lg rounded-tl-2xl rounded-bl-2xl"
+      [ngClass]="{'hide':!invalidForm, 'show':invalidForm}">
+      Please complete all required fields before submitting &nbsp; &nbsp; &nbsp; &nbsp;
+      <button title="close" (click)="CloseErrorPopUp()"><i class="fa-solid fa-chevron-right"></i><i
+            class="fa-solid fa-chevron-right"></i></button>
+   </div>
 
-<div class=" bg-red-600 text-white capitalize p-6 font-bold text-lg rounded-tl-2xl rounded-bl-2xl"
-   [ngClass]="{'hide':!wrongCredentials, 'show':wrongCredentials}">
-   Wrong Credentials &nbsp; &nbsp; &nbsp; &nbsp;
-   <button title="close" (click)="CloseErrorPopUp()"><i class="fa-solid fa-chevron-right"></i><i
-         class="fa-solid fa-chevron-right"></i></button>
-</div>
+   <div class=" bg-red-600 text-white capitalize p-6 font-bold text-lg rounded-tl-2xl rounded-bl-2xl"
+      [ngClass]="{'hide':!wrongCredentials, 'show':wrongCredentials}">
+      Wrong Credentials &nbsp; &nbsp; &nbsp; &nbsp;
+      <button title="close" (click)="hideWrongCredentialError()"><i class="fa-solid fa-chevron-right"></i><i
+            class="fa-solid fa-chevron-right"></i></button>
+   </div>
 
    <div class=" w-96 bg-white px-6 py-6 rounded-lg shadow-stone-400 shadow-md max-w-96">
       <div class="mb-5">
@@ -20,7 +20,7 @@
          <small>Don't have an account? <a class="text-purple-600 underline hover:cursor-pointer"
                routerLink="/signup">Signup here</a></small>
       </div>
-      <form [formGroup]="loginForm" (submit)="OnLogin()" >
+      <form [formGroup]="loginForm" (submit)="OnLogin()">
 
          <div class="mb-5">
             <label for="email" class=""><small class="block text-sm font-medium ml-3 mb-1">Email Address</small></label>

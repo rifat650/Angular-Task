@@ -1,4 +1,22 @@
-<header class="bg-blue-500 block h-7">
- <div><i class="fa-solid fa-user"></i></div>
-<button class="">Logout</button>
+<header class="bg-blue-500 flex items-center justify-end px-16 py-3">
+   @if(isLoggedIn){
+   <div class="relative">
+      <button class="fa-solid fa-user text-white text-2xl mr-6" (click)="OnUserIconClick()"></button>
+
+      @if(showUserInfo){
+      <div class="absolute bg-slate-100 rounded-lg px-4 py-8 top-16 -left-32">
+         <div class="flex items-center justify-start mb-2"><i class="fa-solid fa-envelope mr-2 text-xl"></i><span
+               class="text-xl font-medium">{{userInformation.email}}</span></div>
+
+         <div class="flex items-center justify-start mt-2"><i class="fa-solid fa-id-badge mr-2 text-xl"></i><span
+               class="text-xl font-medium">{{userInformation.username}}</span></div>
+      </div>
+      }
+   </div>
+   <button class="rounded-2xl bg-red-500 text-white font-medium px-4 py-2 font-sans"
+      (click)="onLogout()">Logout</button>
+   }@else {
+   <a routerLink="/login" class="rounded-2xl bg-teal-700 text-white font-medium px-4 py-2 font-sans mr-3">Login</a>
+   <button routerLink="/signup" class="rounded-2xl bg-black text-white font-medium px-4 py-2 font-sans">Signup</button>
+   }
 </header>

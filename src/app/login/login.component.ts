@@ -45,7 +45,7 @@ export class LoginComponent {
         rememberMe: this.loginForm.value.rememberMe
       }
       this.wrongCredentials = !this.authenticationService.validateLoginCredentials(loginData);
-      this.wrongCredentials ? null : this.router.navigate(['/']);
+      this.wrongCredentials ? console.log('log In unsuccessful') : this.router.navigate(['/posts']);
     } else {
       this.invalidForm = true;
     }
@@ -53,6 +53,10 @@ export class LoginComponent {
   }
   CloseErrorPopUp() {
     this.invalidForm = false;
+  }
+
+  hideWrongCredentialError(){
+this.wrongCredentials=false;
   }
 
 }
