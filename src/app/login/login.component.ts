@@ -1,22 +1,58 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { loginValue } from '../loginValue.model';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, ReactiveFormsModule, NgClass],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  authenticationService: AuthenticationService = inject(AuthenticationService);
+  router: Router = inject(Router)
   //password hide and see feature
-  passwordUnseenMode=true;
-  SeePassword(passwordInputField:HTMLInputElement){
-    this.passwordUnseenMode=false;
-    passwordInputField.type='text';
+  passwordUnseenMode = true;
+  SeePassword(passwordInputField: HTMLInputElement) {
+    this.passwordUnseenMode = false;
+    passwordInputField.type = 'text';
   }
-  hidePassword(passwordInputField:HTMLInputElement){
-    this.passwordUnseenMode=true;
-    passwordInputField.type='password'
+  hidePassword(passwordInputField: HTMLInputElement) {
+    this.passwordUnseenMode = true;
+    passwordInputField.type = 'password'
   }
+
+  // reactive form config
+  loginForm: FormGroup;
+  invalidForm: boolean = false;
+  ngOnInit() {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', Validators.required),
+      rememberMe: new FormControl(false)
+    })
+  }
+  wrongCredentials: boolean = false;
+  OnLogin() {
+    if (this.loginForm.valid) {
+      let loginData: loginValue = {
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password,
+        rememberMe: this.loginForm.value.rememberMe
+      }
+      this.wrongCredentials = !this.authenticationService.validateLoginCredentials(loginData);
+      this.wrongCredentials ? null : this.router.navigate(['/']);
+    } else {
+      this.invalidForm = true;
+    }
+
+  }
+  CloseErrorPopUp() {
+    this.invalidForm = false;
+  }
+
 }

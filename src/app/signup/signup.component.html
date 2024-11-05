@@ -1,66 +1,83 @@
-<div class="flex items-center justify-center w-full h-screen" style="background: url('/bg.jpg');">
+<div class="flex items-center justify-center w-full h-screen px-2" style="background: url('/bg.jpg');">
 
+   <div [ngClass]="{'hide':!passwordAndRetypePasswordMissMatched, 'show':passwordAndRetypePasswordMissMatched}"
+      class=" bg-red-600 text-white capitalize p-6 font-bold text-lg rounded-tl-2xl rounded-bl-2xl">
+      Passwords do not match. Please ensure both passwords are identical. &nbsp; &nbsp; &nbsp; &nbsp;
+      <button title="close" (click)="hidePasswordMisMatchError()"><i class="fa-solid fa-chevron-right"></i><i
+            class="fa-solid fa-chevron-right"></i></button>
+   </div>
+
+   <div [ngClass]="{'hide':!FormValidationFailed, 'show':FormValidationFailed}"
+      class=" bg-red-600 text-white capitalize p-6 font-bold text-lg rounded-tl-2xl rounded-bl-2xl">
+      Please complete all required fields before submitting &nbsp; &nbsp; &nbsp; &nbsp;
+      <button title="close" (click)="hideFormValidationError()"><i class="fa-solid fa-chevron-right"></i><i
+            class="fa-solid fa-chevron-right"></i></button>
+   </div>
    <div class=" bg-white px-6 py-6 rounded-lg shadow-stone-400 shadow-md max-w-96">
       <div class="mb-5">
          <h2 class="text-3xl font-medium">Sign Up</h2>
-         <small>Create an account or <a class="text-purple-600 underline hover:cursor-pointer" routerLink="/login">Sign in</a></small>
+         <small>Create an account or <a class="text-purple-600 underline hover:cursor-pointer" routerLink="/login">Sign
+               in</a></small>
       </div>
-
-      <div class="mb-5">
-         <label for="email" class=""><small class="block text-sm font-medium ml-3 mb-1">Email Address</small></label>
-         <input type="email" name="" id="email"
-            class="border-solid border rounded-xl w-full py-1.5 focus:outline-1 outline-sky-400 px-3">
-      </div>
-
-      <div class="mb-5">
-         <label for="username" class=""><small class="block text-sm font-medium ml-3 mb-1">Username</small></label>
-         <input type="text" name="" id="username"
-            class="border-solid border rounded-xl w-full py-1.5 focus:outline-1 outline-sky-400 px-3">
-      </div>
-
-
-      <div class="mb-5">
-         <label for="email" class=""><small class="block text-sm font-medium ml-3 mb-1">Password</small></label>
-         <div class="relative">
-            <input type="password" name="" id="email"
-               class="border-solid border rounded-xl w-full py-1.5 focus:outline-1 outline-sky-400 px-3" #password>
-            @if (passwordUnseenMode) {
-            <button class="fa-solid fa-eye-slash"
-               style="position: absolute; top: 50%; right: 2%; transform: translate(-50%,-50%);"
-               (click)="SeePassword(password)"></button>
-            }@else {
-            <button class="fa-solid fa-eye"
-               style="position: absolute; top: 50%; right: 2%; transform: translate(-50%,-50%);"
-               (click)="hidePassword(password)"></button>
-            }
+      <form (submit)="OnSignUp()" [formGroup]="signUpForm">
+         <div class="mb-5">
+            <label for="email" class=""><small class="block text-sm font-medium ml-3 mb-1">Email Address</small></label>
+            <input type="email" formControlName="email" id="email"
+               class="border-solid border rounded-xl w-full py-1.5 focus:outline-1 outline-sky-400 px-3">
          </div>
-      </div>
 
-      <div class="mb-5">
-         <label for="retypePassword" class=""><small class="block text-sm font-medium ml-3 mb-1"> Retype
-               Password</small></label>
-         <div class="relative">
-            <input type="password" name="" id="retypePassword"
-               class="border-solid border rounded-xl w-full py-1.5 focus:outline-1 outline-sky-400 px-3"
-               #retypePassword>
-            @if (retypePasswordUnseenMode) {
-            <button class="fa-solid fa-eye-slash"
-               style="position: absolute; top: 50%; right: 2%; transform: translate(-50%,-50%);"
-               (click)="SeeRetypedPassword(retypePassword)"></button>
-            }@else {
-            <button class="fa-solid fa-eye"
-               style="position: absolute; top: 50%; right: 2%; transform: translate(-50%,-50%);"
-               (click)="hideRetypedPassword(retypePassword)"></button>
-            }
+         <div class="mb-5">
+            <label for="username" class=""><small class="block text-sm font-medium ml-3 mb-1">Username</small></label>
+            <input type="text" formControlName='username' id="username"
+               class="border-solid border rounded-xl w-full py-1.5 focus:outline-1 outline-sky-400 px-3">
          </div>
-      </div>
 
-      <div class="flex items-start space-x-2 ">
-         <input type="checkbox" name="" id="check" class="mt-1">
-         <label for="check" class="text-sm font-semibold block"> I do not Want to receive Emails with advertising
-            news,suggestions or marketing promotions</label>
-      </div>
-      <button class="w-full bg-blue-700 py-2 text-white capitalize mt-4 rounded-3xl">sign up</button>
+
+         <div class="mb-5">
+            <label for="password" class=""><small class="block text-sm font-medium ml-3 mb-1">Password</small></label>
+            <div class="relative">
+               <input type="password" formControlName="password" id="password"
+                  class="border-solid border rounded-xl w-full py-1.5 focus:outline-1 outline-sky-400 px-3" #password>
+               @if (passwordUnseenMode) {
+               <button class="fa-solid fa-eye-slash"
+                  style="position: absolute; top: 50%; right: 2%; transform: translate(-50%,-50%);"
+                  (click)="SeePassword(password)" type="button"></button>
+               }@else {
+               <button class="fa-solid fa-eye"
+                  style="position: absolute; top: 50%; right: 2%; transform: translate(-50%,-50%);"
+                  (click)="hidePassword(password)" type="button"></button>
+               }
+            </div>
+
+         </div>
+
+         <div class="mb-5">
+            <label for="retypePassword" class=""><small class="block text-sm font-medium ml-3 mb-1"> Retype
+                  Password</small></label>
+            <div class="relative">
+               <input type="password" formControlName="retypePassword" id="retypePassword"
+                  class="border-solid border rounded-xl w-full py-1.5 focus:outline-1 outline-sky-400 px-3"
+                  #retypePassword>
+               @if (retypePasswordUnseenMode) {
+               <button class="fa-solid fa-eye-slash"
+                  style="position: absolute; top: 50%; right: 2%; transform: translate(-50%,-50%);"
+                  (click)="SeeRetypedPassword(retypePassword)" type="button"></button>
+               }@else {
+               <button class="fa-solid fa-eye"
+                  style="position: absolute; top: 50%; right: 2%; transform: translate(-50%,-50%);"
+                  (click)="hideRetypedPassword(retypePassword)" type="button"></button>
+               }
+            </div>
+         </div>
+
+         <div class="flex items-start space-x-2 ">
+            <input type="checkbox" formControlName="sendAdv" id="check" class="mt-1">
+            <label for="check" class="text-sm font-semibold block"> I Want to receive Emails with advertising
+               news,suggestions or marketing promotions</label>
+         </div>
+         <button class="w-full bg-blue-700 py-2 text-white capitalize mt-4 rounded-3xl" type="submit">sign up</button>
+
+      </form>
 
       <small class="text-gray-400 text-center block mt-3 px-2">By signing up to Create an account, you are accepting our
          terms of service and privacy policy

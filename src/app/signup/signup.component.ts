@@ -1,22 +1,28 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { signUpValue } from '../signupValue.model';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, ReactiveFormsModule, NgClass],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
+  authenticationService:AuthenticationService=inject(AuthenticationService);
+  router:Router=inject(Router);
   //password show and hide
-  passwordUnseenMode=true;
+  passwordUnseenMode = true;
   SeePassword(passwordInputField: HTMLInputElement) {
-    this.passwordUnseenMode=false;
+    this.passwordUnseenMode = false;
     passwordInputField.type = "text";
   }
-  hidePassword(passwordInputField: HTMLInputElement){
-    this.passwordUnseenMode=true;
+  hidePassword(passwordInputField: HTMLInputElement) {
+    this.passwordUnseenMode = true;
     passwordInputField.type = "password";
   }
 
@@ -31,4 +37,51 @@ export class SignupComponent {
     passwordInputField.type = "password";
   }
 
+
+  //reactive form config
+  passwordAndRetypePasswordMissMatched: boolean = false;
+  FormValidationFailed: boolean = false;
+  signUpForm: FormGroup;
+  ngOnInit() {
+    this.signUpForm = new FormGroup({
+      email: new FormControl(null,[Validators.required,Validators.email]),
+      username: new FormControl(null,Validators.required),
+      password: new FormControl(null,Validators.required),
+      retypePassword: new FormControl(null,Validators.required),
+      sendAdv: new FormControl(true)
+    })
+  }
+
+  OnSignUp() {
+    
+   if (this.signUpForm.valid) {
+
+      if (this.signUpForm.value.password === this.signUpForm.value.retypePassword) {
+        let userInput:signUpValue={
+          email:this.signUpForm.value.email,
+          username:this.signUpForm.value.username,
+          password:this.signUpForm.value.password,
+          retypePassword: this.signUpForm.value.retypePassword,
+          sendAdv: this.signUpForm.value.sendAdv
+        }
+        
+        this.authenticationService.saveToLocalStorage(userInput);
+        this.router.navigate(['/login'])
+
+      } else {
+        this.passwordAndRetypePasswordMissMatched = true;
+      }
+
+    } else {
+      this.FormValidationFailed = true;
+    }
+  }
+
+  hidePasswordMisMatchError() {
+    this.passwordAndRetypePasswordMissMatched = false;
+  }
+  hideFormValidationError(){
+    this.FormValidationFailed=false;
+  }
 }
+
