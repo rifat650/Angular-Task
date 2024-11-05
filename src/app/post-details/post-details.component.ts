@@ -12,16 +12,18 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-post-details',
   standalone: true,
-  imports: [HeaderComponent, DialogModule, MatDialogModule, MatButtonModule,RouterLink],
+  imports: [HeaderComponent, DialogModule, MatDialogModule, MatButtonModule, RouterLink],
   templateUrl: './post-details.component.html',
   styleUrl: './post-details.component.css'
 })
 export class PostDetailsComponent implements OnInit, OnDestroy {
+  //services
   postsService: PostsService = inject(PostsService);
   authenticationService: AuthenticationService = inject(AuthenticationService);
+  //properties
   clickedPost: post;
   postComments: comment[];
-  showAuthPopUp=false;
+  showAuthPopUp = false;
 
   ngOnInit() {
     let postId = this.postsService.getClickedPostId();
@@ -46,7 +48,9 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   }
 
   onCommentPost(commentInputField: HTMLTextAreaElement) {
-    let userInfo: signUpValue = this.authenticationService.getSignupValue()
+    let userInfo: signUpValue = this.authenticationService.getSignupValue();
+    let isLoggedIn = this.authenticationService.UserLoggedIn();
+
     let commentObj = {
       postId: this.clickedPost.id,
       id: this.postComments[this.postComments.length - 1].id + 1,
@@ -54,20 +58,20 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
       email: userInfo.email,
       body: commentInputField.value
     }
-    let isLoggedIn = this.authenticationService.UserLoggedIn();
 
     if (isLoggedIn) {
       this.postComments.push(commentObj);
-      commentInputField.value=null;
+      commentInputField.value = null;
     } else {
-this.showAuthPopUp=true;
+      this.showAuthPopUp = true;
     }
   }
   ngOnDestroy() {
     this.postsService.deleteClickedPostId()
   }
 
-  hideAuthPopUp(){
-    this.showAuthPopUp=false;
+  //hide error popup
+  hideAuthPopUp() {
+    this.showAuthPopUp = false;
   }
 }

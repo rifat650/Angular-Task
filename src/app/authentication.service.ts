@@ -8,15 +8,21 @@ import { loginValue } from './loginValue.model';
 export class AuthenticationService {
 
   constructor() { }
+
   private LoggedIn = false;
+
+  UserLoggedIn() {
+    return this.LoggedIn;
+  }
 
   saveToLocalStorage(userInput: signUpValue) {
     localStorage.setItem('signupValue', JSON.stringify(userInput));
   }
-  getSignupValue(){
-    if(this.LoggedIn){
+
+  getSignupValue() {
+    if (this.LoggedIn) {
       return JSON.parse(localStorage.getItem('signupValue'))
-    }else{
+    } else {
       return false;
     }
 
@@ -25,32 +31,27 @@ export class AuthenticationService {
   validateLoginCredentials(loginData: loginValue) {
     let signupValue: signUpValue = this.getSignupValue()
 
-  if(signupValue !=null){
-    if (signupValue.email === loginData.email && signupValue.password === loginData.password) {
-      this.LoggedIn = true;
-      localStorage.setItem('LoggedIn','true');
-      return true;
+    if (signupValue != null) {
+      if (signupValue.email === loginData.email && signupValue.password === loginData.password) {
+        this.LoggedIn = true;
+        localStorage.setItem('LoggedIn', 'true');
+        return true;
+      } else {
+        return false;
+      }
     } else {
       return false;
     }
-  }else{
-    return false;
-  }
-    
+
   }
 
-  LogOutUser(){
-    this.LoggedIn=false;
+  LogOutUser() {
+    this.LoggedIn = false;
     localStorage.removeItem('signupValue');
     localStorage.removeItem('LoggedIn')
   }
 
-  UserLoggedIn(){
-    return this.LoggedIn;
-  }
-
-
-  SetIsLoggedIn(){
-    this.LoggedIn= JSON.parse(localStorage.getItem('LoggedIn'));
+  SetIsLoggedIn() {
+    this.LoggedIn = JSON.parse(localStorage.getItem('LoggedIn'));
   }
 }

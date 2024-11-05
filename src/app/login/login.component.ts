@@ -9,13 +9,15 @@ import { HeaderComponent } from '../header/header.component';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, NgClass,HeaderComponent],
+  imports: [RouterLink, ReactiveFormsModule, NgClass, HeaderComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  //services
   authenticationService: AuthenticationService = inject(AuthenticationService);
   router: Router = inject(Router)
+
   //password hide and see feature
   passwordUnseenMode = true;
   SeePassword(passwordInputField: HTMLInputElement) {
@@ -52,12 +54,13 @@ export class LoginComponent {
     }
 
   }
+  //form validation error hide
   CloseErrorPopUp() {
     this.invalidForm = false;
   }
 
-  hideWrongCredentialError(){
-this.wrongCredentials=false;
+  hideWrongCredentialError() {
+    this.wrongCredentials = false;
   }
 
 }

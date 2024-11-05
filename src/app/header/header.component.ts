@@ -11,8 +11,11 @@ import { signUpValue } from '../signupValue.model';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  //services
   authenticationService: AuthenticationService = inject(AuthenticationService);
   router: Router = inject(Router);
+
+  //properties
   isLoggedIn = this.authenticationService.UserLoggedIn();
   userInformation:signUpValue=this.authenticationService.getSignupValue()
 
@@ -26,7 +29,6 @@ export class HeaderComponent {
   onLogout() {
     this.authenticationService.LogOutUser();
     this.isLoggedIn = this.authenticationService.UserLoggedIn();
-    //this.router.navigate(['/'])
   }
 
 

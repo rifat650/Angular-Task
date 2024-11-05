@@ -14,8 +14,11 @@ import { HeaderComponent } from '../header/header.component';
   styleUrl: './signup.component.css'
 })
 export class SignupComponent implements OnInit {
+
+  //services
   authenticationService:AuthenticationService=inject(AuthenticationService);
   router:Router=inject(Router);
+
   //password show and hide
   passwordUnseenMode = true;
   SeePassword(passwordInputField: HTMLInputElement) {
@@ -78,11 +81,14 @@ export class SignupComponent implements OnInit {
     }
   }
 
+  //signup error hide
+
   hidePasswordMisMatchError() {
     this.passwordAndRetypePasswordMissMatched = false;
   }
   hideFormValidationError(){
     this.FormValidationFailed=false;
   }
+
 }
 

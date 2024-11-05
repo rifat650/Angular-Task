@@ -12,14 +12,20 @@ import { Router } from '@angular/router';
   styleUrl: './posts.component.css'
 })
 export class PostsComponent implements OnInit {
+
+  //services
   postsService: PostsService = inject(PostsService);
   router:Router=inject(Router);
+  //pagination properties
   paginatorLength: number;
   paginatorPageSizeOptions: number[] = [1, 2, 3, 4, 5, 10];
   postsPerPage: number = 10;
+  currentPage = 1;
+
+  //posts
   posts: post[];
   SlicedPosts:post[];
-  currentPage = 1;
+
 
   ngOnInit() {
     this.postsService.getPosts().subscribe({
