@@ -14,7 +14,12 @@ export class AuthenticationService {
     localStorage.setItem('signupValue', JSON.stringify(userInput));
   }
   getSignupValue(){
-    return JSON.parse(localStorage.getItem('signupValue'))
+    if(this.LoggedIn){
+      return JSON.parse(localStorage.getItem('signupValue'))
+    }else{
+      return false;
+    }
+
   }
 
   validateLoginCredentials(loginData: loginValue) {
@@ -23,6 +28,7 @@ export class AuthenticationService {
   if(signupValue !=null){
     if (signupValue.email === loginData.email && signupValue.password === loginData.password) {
       this.LoggedIn = true;
+      localStorage.setItem('LoggedIn','true');
       return true;
     } else {
       return false;
@@ -35,11 +41,16 @@ export class AuthenticationService {
 
   LogOutUser(){
     this.LoggedIn=false;
-    localStorage.clear()
+    localStorage.removeItem('signupValue');
+    localStorage.removeItem('LoggedIn')
   }
 
   UserLoggedIn(){
     return this.LoggedIn;
   }
 
+
+  SetIsLoggedIn(){
+    this.LoggedIn= JSON.parse(localStorage.getItem('LoggedIn'));
+  }
 }

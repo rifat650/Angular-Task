@@ -4,11 +4,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { signUpValue } from '../signupValue.model';
 import { AuthenticationService } from '../authentication.service';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, NgClass],
+  imports: [RouterLink, ReactiveFormsModule, NgClass,HeaderComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })

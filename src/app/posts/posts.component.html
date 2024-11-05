@@ -4,7 +4,7 @@
 
    <div class="flex items-center justify-center flex-row flex-wrap">
       @for (post of SlicedPosts; track $index){
-      <div class=" bg-slate-100 shadow-sm border-solid border-2 rounded-md m-3 p-3 w-80 h-96 relative">
+      <div class=" bg-slate-100 shadow-sm border-solid border-2 rounded-md m-3 p-3 w-80 h-96 relative hover:cursor-pointer" (click)="postClicked(post.id)">
         <div class="flex items-center justify-between my-4">
          <small class="bg-black text-white rounded-3xl px-4 font-sans font-medium text-l"> Id : &nbsp; {{post.id}}</small>
          <small class="bg-green-700 text-white rounded-3xl px-4 font-sans font-medium text-l"> User Id : &nbsp; {{post.userId}}</small>

@@ -1,1 +1,62 @@
-<p>post-details works!</p>
+<app-header></app-header>
+
+@if(showAuthPopUp){
+<div class="w-1/2 shadow-lg text-center absolute top-1/2 left-1/4 bg-white p-8">
+   <h2 mat-dialog-title>Please log in to post a comment.</h2>
+   <mat-dialog-content>
+      <p>Only registered users can comment on this post</p>
+   </mat-dialog-content>
+   <mat-dialog-actions>
+      <a mat-flat-button routerLink="/login"> Login</a>
+      <a routerLink="/signup" mat-raised-button class="mx-5">Signup</a>
+      <button (click)="hideAuthPopUp()" class="bg-red-600 rounded-2xl px-5 py-2 text-white"> Close</button>
+   </mat-dialog-actions>
+</div>
+}@else {
+
+<div class="w-5/6 m-auto shadow-sm bg-slate-50 px-4 rounded-md py-5 mt-4">
+   <div class="mt-5">
+      <h5>{{clickedPost?.title}}</h5>
+      <p>{{clickedPost?.body}}</p>
+   </div>
+   <hr class="border border-solid border-zinc-200 mb-8">
+   <div>
+      <span class="font-medium text-2xl underline mb-4 ">Comments:</span>
+      <div class="w-5/6 mx-auto relative shadow-sm">
+         <textarea placeholder="write a public comment ...."
+            class="w-full rounded-sm resize-none outline-sky-400 outline-2 p-3 mt-5 h-28" #commentInputFiled></textarea>
+         <button class="bg-blue-600 text-white rounded-full py-2 px-3 text-xl absolute bottom-0 right-0 mb-5 mr-4"
+            (click)="onCommentPost(commentInputFiled)"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+
+      @for (comment of postComments; track $index) {
+      <div class="w-5/6 bg-slate-100 mx-auto rounded-xl p-4 my-4 shadow-md">
+         <div>
+            <div class="bg-green-800 rounded-xl px-6 text-white inline-block mb-4"><span class="font-medium">commented
+                  by:
+               </span>{{comment.name}}
+            </div> <br>
+            <div class="bg-black rounded-xl px-4 text-white inline-block mb-2"><span class="font-medium">User Email:
+               </span>{{comment.email}}
+            </div>
+         </div>
+         <p class="font-medium text-2xl">{{comment.body}}</p>
+
+         <div class="flex items-center justify-between">
+            <small class="bg-blue-800 rounded-xl px-6 py-1 text-white"><span class="font-medium">comment no:
+               </span>{{comment.id}}
+            </small>
+            <small class="bg-yellow-500 rounded-xl px-6 py-1 text-white"><span class="font-medium">post no:
+               </span>{{comment.postId}}
+            </small>
+         </div>
+
+      </div>
+      }
+
+
+   </div>
+</div>
+
+
+}

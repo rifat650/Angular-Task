@@ -3,6 +3,7 @@ import { HeaderComponent } from '../header/header.component';
 import { PostsService } from '../posts.service';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { post } from '../post.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-posts',
   standalone: true,
@@ -12,6 +13,7 @@ import { post } from '../post.model';
 })
 export class PostsComponent implements OnInit {
   postsService: PostsService = inject(PostsService);
+  router:Router=inject(Router);
   paginatorLength: number;
   paginatorPageSizeOptions: number[] = [1, 2, 3, 4, 5, 10];
   postsPerPage: number = 10;
@@ -35,5 +37,9 @@ export class PostsComponent implements OnInit {
 
   onChangedPage(event: PageEvent) {
    this.SlicedPosts=this.postsService.slicePosts(this.posts,event.pageSize,event.pageIndex)
+  }
+  postClicked(id:number){
+   this.postsService.saveClickedPostId(id)
+    this.router.navigate(['/post-details']);
   }
 }
