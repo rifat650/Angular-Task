@@ -11,10 +11,6 @@ export class AuthenticationService {
 
   private LoggedIn = false;
 
-  UserLoggedIn() {
-    return this.LoggedIn;
-  }
-
   saveToLocalStorage(userInput: signUpValue) {
     localStorage.setItem('signupValue', JSON.stringify(userInput));
   }
@@ -29,7 +25,8 @@ export class AuthenticationService {
   }
 
   validateLoginCredentials(loginData: loginValue) {
-    let signupValue: signUpValue = this.getSignupValue()
+    //--
+    let signupValue: signUpValue = JSON.parse(localStorage.getItem('signupValue'))
 
     if (signupValue != null) {
       if (signupValue.email === loginData.email && signupValue.password === loginData.password) {
@@ -53,5 +50,9 @@ export class AuthenticationService {
 
   SetIsLoggedIn() {
     this.LoggedIn = JSON.parse(localStorage.getItem('LoggedIn'));
+  }
+  
+  UserLoggedIn() {
+    return this.LoggedIn;
   }
 }

@@ -3,7 +3,7 @@
       <a routerLink="/" class=" font-medium text-white mx-4">Home</a>
       <a routerLink="/posts" class=" font-medium text-white mx-4">posts</a>
    </div>
-   <div>
+   <div class="flex items-center">
       @if(isLoggedIn){
       <div class="relative">
          <button class="fa-solid fa-user text-white text-2xl mr-6" (click)="OnUserIconClick()"></button>

@@ -30,6 +30,7 @@ export class LoginComponent {
   }
 
   // reactive form config
+  wrongCredentials: boolean = false;
   loginForm: FormGroup;
   invalidForm: boolean = false;
   ngOnInit() {
@@ -39,7 +40,7 @@ export class LoginComponent {
       rememberMe: new FormControl(false)
     })
   }
-  wrongCredentials: boolean = false;
+//login function
   OnLogin() {
     if (this.loginForm.valid) {
       let loginData: loginValue = {
